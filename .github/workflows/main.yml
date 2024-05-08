@@ -1,0 +1,23 @@
+name: SAST
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  ws-sast:
+    name: WS-SAST
+    runs-on: ubuntu-latest
+    env:
+      SAST_ORGANIZATION: 'e21d9e12-1176-4dd8-b0ba-5e4c9a5ba659'
+      SASTCLI_TOKEN: '1568a6c8bd335fc677007c8a7ff7e856e0a4356eaa4c4aaf30568eba7f4c57ea'
+      SAST_SERVER: https://saas.whitesourcesoftware.com
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      # Download CLI
+      - name: Download CLI
+        run: curl -LJO https://downloads-demo.whitesourcesoftware.com/sast-cli/linux/wscli && chmod +x wscli
+      # Run CLI
+      - name: Run WS-SAST
+        run: ./wscli --dir ./ --name=${{github.event.repository.name}}-${{github.ref_name}}-${{github.sha}} --app=${{github.event.repository.name}} --baseline=true
