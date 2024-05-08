@@ -9,8 +9,8 @@ jobs:
     name: WS-SAST
     runs-on: ubuntu-latest
     env:
-      SAST_ORGANIZATION: 'e21d9e12-1176-4dd8-b0ba-5e4c9a5ba659'
-      SASTCLI_TOKEN: '1568a6c8bd335fc677007c8a7ff7e856e0a4356eaa4c4aaf30568eba7f4c57ea'
+      SAST_ORGANIZATION: ${{secrets.SAST_ORGANIZATION}}
+      SASTCLI_TOKEN: ${{secrets.SASTCLI_TOKEN}}
       SAST_SERVER: https://saas.whitesourcesoftware.com
     steps:
       - name: Checkout repository
